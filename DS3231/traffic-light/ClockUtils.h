@@ -7,30 +7,30 @@
 class ClockUtils
 {
  public:
-	ClockUtils(bool century);
+    ClockUtils(bool century);
 
-	void printClock();
-	void readClockFromSerial();
-	byte getDayOfTheWeek();
-	bool isWeekEnd();
-	byte getHour(); // Always as if we were in 24h mode.
-	byte getMinute();
+    void printClock();
+    void readClockFromSerial();
+    byte getDayOfTheWeek();
+    bool isWeekEnd();
+    byte getHour(); // Always as if we were in 24h mode.
+    byte getMinute();
 
-	// XXX
-	void setClock();
+    // XXX
+    void setClock();
 
  private:
-	DS3231 _clock;
-	bool   _century = false;
-	enum DAY_OF_THE_WEEK {
-	                      MONDAY = 1,
-	                      TUESDAY,
-	                      WEDNESDAY,
-	                      THURSDAY,
-	                      FRIDAY,
-	                      SATURDAY,
-	                      SUNDAY,
-	};
+    DS3231 _clock;
+    bool   _century = false;
+    enum DAY_OF_THE_WEEK {
+                          MONDAY = 1,
+                          TUESDAY,
+                          WEDNESDAY,
+                          THURSDAY,
+                          FRIDAY,
+                          SATURDAY,
+                          SUNDAY,
+    };
 
 };
 

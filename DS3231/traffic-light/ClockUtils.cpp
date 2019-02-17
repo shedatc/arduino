@@ -10,7 +10,7 @@ void ClockUtils::printClock()
 {
   // Year
   Serial.print('2');
-  if (_century) {			// Won't need this for 89 years.
+  if (_century) {           // Won't need this for 89 years.
     Serial.print('1');
   } else {
     Serial.print('0');
@@ -102,7 +102,7 @@ bool ClockUtils::isWeekEnd()
 
 byte ClockUtils::getHour()
 {
-	bool h12  = false; // true if 12h mode, false if 24h mode.
+    bool h12  = false; // true if 12h mode, false if 24h mode.
   bool pm   = false;
   byte hour = _clock.getHour(h12, pm);
   if (h12 && pm) { // Emulate 24h mode if needed.
