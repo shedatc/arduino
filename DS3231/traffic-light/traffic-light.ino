@@ -39,16 +39,22 @@ void switchLight(byte targetLedPin)
 }
 
 // Transitions:
-//     7h15  red    -> orange
-//     7h30  orange -> green
-//     20h30 green  -> red
+//     Morning:
+//         7h15  red    -> orange
+//         7h30  orange -> green
+//    Snooze:
+//         13h30 green  -> red
+//         14h30 red    -> orange
+//         14h40 orange -> green
+//    Evening:
+//         20h30 green  -> red
 byte selectLightDuringWorkingDay()
 {
   byte hour   = clockUtils.getHour();
   byte minute = clockUtils.getMinute();
 
   Serial.print("Time Slot: ");
-  if (hour == 7) {                                // 7h00..7h59
+  if (hour == 7) {                                // 7h00..7h59     MORNING
     if (minute <= 14) {                           // 7h00..7h14
       Serial.println("7h00..7h14");
       return RED_LED_PIN;
@@ -67,7 +73,40 @@ byte selectLightDuringWorkingDay()
     Serial.println("8h00..19h59");
     return GREEN_LED_PIN;
   }
-  else if (hour == 20) {                          // 20h00..20h59
+  else if (hour == 13) {                          // 13h00..13h59     SNOOZE
+    if (minute <= 29) {                           // 13h00..13h29
+      Serial.println("13h00..13h29");
+      return GREEN_LED_PIN;
+    }
+    else {                                        // 13h30..13h59
+      Serial.println("13h30..13h59");
+      return RED_LED_PIN;
+    }
+    // NOTREACHED
+  }
+  else if (hour == 14) {                          // 14h00..14h59
+    if (minute <= 49) {                           // 14h00..14h49
+      Serial.println("14h00..14h49");
+      return RED_LED_PIN;
+    }
+    else {                                        // 14h30..14h59
+      Serial.println("14h30..14h59");
+      return ORANGE_LED_PIN;
+    }
+    // NOTREACHED
+  }
+  else if (hour >= 15 && hour <= 19) {            // 15h00..19h59
+	  if (minute <= 4) {                            // 14h00..14h49
+		  Serial.println("15h00..15h04");
+		  return ORANGE_LED_PIN;
+	  }
+	  else {                                        // 15h05..19h59
+		  Serial.println("15h05..19h59");
+		  return GREEN_LED_PIN;
+	  }
+	  // NOTREACHED
+  }
+  else if (hour == 20) {                          // 20h00..20h59     EVENING
     if (minute <= 14) {                           // 20h00..20h14
       Serial.println("20h00..20h14");
       return GREEN_LED_PIN;
@@ -90,19 +129,22 @@ byte selectLightDuringWorkingDay()
 }
 
 // Transitions:
-//     8h15  red    -> orange
-//     8h30  orange -> green
-//     13h30 green  -> red
-//     14h30 red    -> orange
-//     14h40 orange -> green
-//     20h30 green  -> red
+//    Morning:
+//         8h15  red    -> orange
+//         8h30  orange -> green
+//    Snooze:
+//         13h30 green  -> red
+//         14h50 red    -> orange
+//         15h05 orange -> green
+//    Evening:
+//         20h30 green  -> red
 byte selectLightDuringWeekEnd()
 {
   byte hour   = clockUtils.getHour();
   byte minute = clockUtils.getMinute();
 
   Serial.print("Time Slot: ");
-  if (hour == 8) {                                // 8h00..8h59
+  if (hour == 8) {                                // 8h00..8h59     MORNING
     if (minute <= 14) {                           // 8h00..8h14
       Serial.println("8h00..7h14");
       return RED_LED_PIN;
@@ -121,7 +163,7 @@ byte selectLightDuringWeekEnd()
     Serial.println("9h00..12h59");
     return GREEN_LED_PIN;
   }
-  else if (hour == 13) {                          // 13h00..13h59
+  else if (hour == 13) {                          // 13h00..13h59     SNOOZE
     if (minute <= 29) {                           // 13h00..13h29
       Serial.println("13h00..13h29");
       return GREEN_LED_PIN;
@@ -133,25 +175,28 @@ byte selectLightDuringWeekEnd()
     // NOTREACHED
   }
   else if (hour == 14) {                          // 14h00..14h59
-    if (minute <= 29) {                           // 14h00..14h29
-      Serial.println("14h00..14h29");
+    if (minute <= 49) {                           // 14h00..14h49
+      Serial.println("14h00..14h49");
       return RED_LED_PIN;
     }
-    else if (minute <= 39) {                      // 14h30..14h39
-      Serial.println("14h30..14h39");
+    else {                                        // 14h30..14h59
+      Serial.println("14h30..14h59");
       return ORANGE_LED_PIN;
-    }
-    else {                                        // 14h40..14h59
-      Serial.println("14h40..14h59");
-      return GREEN_LED_PIN;
     }
     // NOTREACHED
   }
-  else if (hour >= 15 && hour <= 19) {             // 15h00..19h59
-    Serial.println("15h00..19h59");
-    return GREEN_LED_PIN;
+  else if (hour >= 15 && hour <= 19) {            // 15h00..19h59
+	  if (minute <= 4) {                            // 14h00..14h49
+		  Serial.println("15h00..15h04");
+		  return ORANGE_LED_PIN;
+	  }
+	  else {                                        // 15h05..19h59
+		  Serial.println("15h05..19h59");
+		  return GREEN_LED_PIN;
+	  }
+	  // NOTREACHED
   }
-  else if (hour == 20) {                          // 20h00..20h59
+  else if (hour == 20) {                          // 20h00..20h59     EVENING
     if (minute <= 14) {                           // 20h00..20h14
       Serial.println("20h00..20h14");
       return GREEN_LED_PIN;
