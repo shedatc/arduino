@@ -89,14 +89,14 @@ byte selectLightDuringWorkingDay()
       Serial.println("14h00..14h49");
       return RED_LED_PIN;
     }
-    else {                                        // 14h30..14h59
-      Serial.println("14h30..14h59");
+    else {                                        // 14h50..14h59
+      Serial.println("14h50..14h59");
       return ORANGE_LED_PIN;
     }
     // NOTREACHED
   }
   else if (hour >= 15 && hour <= 19) {            // 15h00..19h59
-	  if (minute <= 4) {                            // 14h00..14h49
+	  if (minute <= 4) {                            // 15h00..15h04
 		  Serial.println("15h00..15h04");
 		  return ORANGE_LED_PIN;
 	  }
@@ -179,14 +179,14 @@ byte selectLightDuringWeekEnd()
       Serial.println("14h00..14h49");
       return RED_LED_PIN;
     }
-    else {                                        // 14h30..14h59
-      Serial.println("14h30..14h59");
+    else {                                        // 14h50..14h59
+      Serial.println("14h50..14h59");
       return ORANGE_LED_PIN;
     }
     // NOTREACHED
   }
   else if (hour >= 15 && hour <= 19) {            // 15h00..19h59
-	  if (minute <= 4) {                            // 14h00..14h49
+	  if (minute <= 4) {                            // 15h00..15h04
 		  Serial.println("15h00..15h04");
 		  return ORANGE_LED_PIN;
 	  }
