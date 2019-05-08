@@ -121,10 +121,10 @@ void ClockUtils::setClock()
 {
   _clock.setClockMode(false); // Set to 24h.
   _clock.setYear(19);
-  _clock.setMonth(2);
-  _clock.setDate(14);
-  _clock.setDoW(4);
-  _clock.setHour(14);
-  _clock.setMinute(43);
-  _clock.setSecond(20);
+  _clock.setMonth(4);
+  _clock.setDate(6);
+  _clock.setDoW(SATURDAY);
+  _clock.setHour(20);
+  _clock.setMinute(40);
+  _clock.setSecond(0);
 }
